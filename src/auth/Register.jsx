@@ -112,7 +112,19 @@ const Register = () => {
 
     const handleRegisterWithGoogle = () => {
         signWithGoogle()
-        .then()
+            .then((result) => {
+                console.log('google access-> ', result)
+            })
+            .catch((error) => {
+                console.log(error)
+                console.log(error.message)
+                setRegisterError(error.message)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.message,
+                });
+            })
     }
 
     return (

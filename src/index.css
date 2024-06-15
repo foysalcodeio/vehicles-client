@@ -7,7 +7,7 @@ body {
     color: white;
 }
 :root, [data-theme] {
-    background-color: #37314d;
+    background-color: #07050f;
     color: var(--fallback-bc, oklch(var(--bc) / 1));
 }
 .container-lg {
