@@ -21,8 +21,25 @@ const Navbar = () => {
             })
     }
 
+    const NavCarList = <>
+        <li><NavLink to="/">Lamborghini</NavLink></li>
+        <li><NavLink to="/">Ford</NavLink></li>
+        <li><NavLink to="/">BMW</NavLink></li>
+        <li><NavLink to="/">Mercedes-Benz</NavLink></li>
+        <li><NavLink to="/">Tesla</NavLink></li>
+    </>
+
     const NavLinks = <>
         <li> <NavLink className=" p-4" to={"/"}> Home </NavLink> </li>
+        {/* <li> <NavLink className=" p-4" to={"/buy"}> Buy Car </NavLink> </li> */}
+
+        <div className="dropdown dropdown-hover">
+            <div tabIndex={0} role="button" className="m-1"> <li> <NavLink className=" p-4" to={"/buy"}> Buy Car </NavLink> </li></div>
+            <ul tabIndex={0} className="dropdown-content z-[1] p-3 py-4 shadow bg-[#1a1624] text-bold  rounded-box w-48">
+                {NavCarList}
+            </ul>
+        </div>
+
         <li> <NavLink className=" p-4" to={"/cart"}> My Cart </NavLink> </li>
         {
             user ? (<li> <NavLink className=" p-4" to={"/dashboard"}> Dashboard </NavLink> </li>) : ("")

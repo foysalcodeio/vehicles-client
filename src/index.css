@@ -19,6 +19,9 @@ body {
 .active {
     color: #fd5631;
 }
+.active:hover{
+    color: #f53308;
+}
 .bg-hero {
     background-image: url("./assets/hero-bg.png");
 }
