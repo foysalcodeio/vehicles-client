@@ -4,7 +4,7 @@ import Root from "../root/Root";
 import Home from "../components/home/Home";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
-import Dashboard from "../dashboard/Dashboard";
+import AddItems from "../dashboard/AddItems";
 
 const Router = createBrowserRouter([
     {
@@ -25,9 +25,11 @@ const Router = createBrowserRouter([
                 element: <Register />
             },
             {
-                path: "/",
-                element: <Dashboard />
+                path: "add/:id",
+                element: <AddItems />,
+                loader: ({ params }) => fetch(`http://localhost:5500/cars/${params.id}`)
             }
+            
         ],
         
     },

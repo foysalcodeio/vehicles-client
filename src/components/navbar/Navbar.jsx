@@ -4,6 +4,7 @@ import { SlMenu } from "react-icons/sl";
 import { RxCross1 } from "react-icons/rx";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/AuthProvider";
+import AutoSlider from "../home/AutoSlider";
 
 const Navbar = () => {
 
@@ -55,6 +56,7 @@ const Navbar = () => {
     return (
         <div >
             <div className="container-lg">
+                <AutoSlider />
                 <div className="flex justify-between items-center py-5">
                     <div className="">
                         <img src={logo} alt="" />

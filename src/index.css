@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
     font-family: "Poppins", sans-serif;
     color: white;
@@ -21,6 +23,7 @@ body {
 }
 .active:hover{
     color: #f53308;
+    text-decoration: underline;
 }
 .bg-hero {
     background-image: url("./assets/hero-bg.png");
@@ -48,3 +51,4 @@ body {
 .indicate-top {
     transform: rotate(-135deg);
 }
+

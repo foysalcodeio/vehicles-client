@@ -1,6 +1,8 @@
 import Apps from "./Apps";
+import AutoSlider from "./AutoSlider";
 import Banner from "./Banner";
 import Brands from "./Brands";
+import LatestCar from "./LatestCar";
 import Service from "./Service";
 
 const Home = () => {
@@ -10,6 +12,7 @@ const Home = () => {
           <Brands />
           <Service />
           <Apps />
+          <LatestCar />
         </div>
     );
 };

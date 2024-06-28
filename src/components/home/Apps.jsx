@@ -9,10 +9,10 @@ const Apps = () => {
     }, [])
 
     return (
-        <div className="container-lg pt-16 pb-32">
-            <div className="grid lg:grid-cols-6 md:gap-5 gap-6 items-center">
-                {/* left side */}
-                <div data-aos="flip-left" className="lg:col-span-2">
+        <div className="container-lg ">
+            <div className="grid md:grid-cols-4 lg:grid-cols-5 sm:grid-cols-2 items-center justify-end">
+               {/* left side */}
+               <div data-aos="flip-left" className="lg:col-span-2">
                     <div className="flex gap-4">
                         <h1 className="text-3xl pb-4">Get the top-rated app!
                         </h1>
@@ -42,7 +42,7 @@ const Apps = () => {
 
                 {/* Right side */}
                 <div data-aos="flip-left" className="lg:col-span-2">
-                    <img src={car_app} alt="" />
+                    <img className='' src={car_app} alt="" />
                 </div>
 
             </div>

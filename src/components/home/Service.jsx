@@ -77,8 +77,6 @@ const Service = () => {
                         </div>
                     </div>
 
-
-
                     <div className="flex md:gap-8 gap-3">
                         {/* LOGO SECTION */}
                         <div className="">
@@ -98,14 +96,6 @@ const Service = () => {
                             </p>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
 
                 </div>
 
