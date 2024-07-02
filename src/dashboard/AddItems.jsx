@@ -1,39 +1,73 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { HiOutlineArrowUpTray } from "react-icons/hi2";
 import { BsUpload } from "react-icons/bs";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { AuthContext } from "../auth/AuthProvider";
 
 const AddItems = () => {
     const carAddItems = useLoaderData();
     console.log(carAddItems);
-    const {title, brand, location, price, mileage, fuelType} = carAddItems;
-  
+    const { user } = useContext(AuthContext);
+    const { title, brand, location, price, mileage, fuelType, photoLink } = carAddItems;
 
     const [uploadFile, setUploadFile] = useState();
-    const [uploadedImage, setUploadImage] = useState();
+    const [uploadedImage, setUploadImage] = useState(photoLink);
 
-    const handleChange = () => {
-        setUploadFile(URL.createObjectURL(e.target.files[0]))
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setUploadFile(URL.createObjectURL(e.target.files[0]));
         setUploadImage(e.target.files[0]);
-    }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('handle submit click');
 
         const form = e.target;
-        const name = form.name.value;
         const brand = form.brand.value;
         const location = form.location.value;
-        const milage = form.milage.value;
+        const mileage = form.mileage.value;
         const type = form.type.value;
         const price = form.price.value;
 
         const vehicles_info = {
-            name, brand, location, milage, type, price
-        }
-        console.log(vehicles_info);
-    }
+            name: title,
+            brand,
+            location,
+            mileage,
+            type,
+            price,
+            photoLink: uploadedImage,
+            email: user?.email // Include user.email here
+        };
+
+        console.log('vehicles',vehicles_info);
+
+        axios.post('http://localhost:5500/bookings', vehicles_info, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log(response.data);
+            if (response.data.insertedId) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Vehicles Data Updated",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/cart');
+            }
+        })
+        .catch(error => {
+            console.error('There was an error', error.message);
+        });
+    };
 
     return (
         <div className="container-lg">
@@ -45,10 +79,9 @@ const AddItems = () => {
                     <div className="grid lg:grid-cols-3 grid-cols-1 lg:gap-6">
                         <div className="pb-6">
                             <div className="bg-[#282435] p-2 rounded-lg items-center h-96 w-full">
-
                                 {
                                     uploadFile ?
-                                        <img src="" className="object-cover border-0 rounded-lg w-full h-full mx-auto my-auto mb-0" alt="" />
+                                        <img src={uploadFile} className="object-cover border-0 rounded-lg w-full h-full mx-auto my-auto mb-0" alt="Uploaded" />
                                         :
                                         <div className="flex h-full justify-center items-center">
                                             <BsUpload className="text-6xl" />
@@ -74,6 +107,9 @@ const AddItems = () => {
                         </div>
                         <div className="col-span-2">
                             <div className="bg-[#282435] rounded-lg md:px-10 p-6">
+                                {
+                                    user ? <p className="ps-1 ring rounded-lg p-2 mb-2 w-2/6"> Email id : {user?.email} </p> : " "
+                                }
                                 <label htmlFor="name" className="block md:w-96 w-full pb-2 font-semibold">
                                     Car Name{" "}
                                     <span className="text-red-600">*</span>
@@ -118,13 +154,13 @@ const AddItems = () => {
                                     </div>
 
                                     <div>
-                                        <label htmlFor="milage" className="block w-full pb-2 pt-8 font-semibold">
+                                        <label htmlFor="mileage" className="block w-full pb-2 pt-8 font-semibold">
                                             Mileage{" "}
                                             <span className="text-red-600">*</span>
                                         </label>
                                         <input
                                             type="number"
-                                            name="milage"
+                                            name="mileage"
                                             required
                                             className="rounded-md w-full py-3 px-4 bg-[#302D3D]"
                                             placeholder="Enter mileage"
@@ -177,7 +213,7 @@ const AddItems = () => {
                                 />
 
                                 <button type="submit" className="w-full mt-8 py-3 bg-[#FD5631] hover:bg-[#fd3831] hover:shadow-md text-white rounded-md">
-                                    <span>Adding</span>
+                                    <span>Customized</span>
                                 </button>
                             </div>
                         </div>

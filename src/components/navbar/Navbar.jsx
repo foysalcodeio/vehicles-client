@@ -71,11 +71,11 @@ const Navbar = () => {
                             <li>
                                 {
                                     user ?
-                                        <div className="py-1 px-2 flex gap-2 rounded-full items-center">
+                                        <div className="py-1 px-2 flex gap-2 rounded-2xl items-center bg-[#302D3D]">
                                             <p className="ps-1"> {user.displayName} </p>
                                             <div className="dropdown dropdown-end">
                                                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                                    <div className="w-10 rounded-full">
+                                                    <div className="ring-primary ring-offset-base-100 w-20 rounded-full ring ring-offset-2">
                                                         <img src={user.photoURL} />
                                                     </div>
                                                 </label>

@@ -4,6 +4,8 @@ import Cards from "../shared/Cards";
 import SliderComponent from "../shared/SliderComponent";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { NavLink } from "react-router-dom";
+import ViewAll from "../shared/ViewAll";
 
 const LatestCar = () => {
     var settings = {
@@ -61,7 +63,11 @@ const LatestCar = () => {
                 <div className="lg:col-span-2">
                     <div className="flex flex-row-2 justify-between gap-4">
                         <h1 className="text-3xl pb-4">Latest Car</h1>
-                        <button className="btn">View All</button>
+                        <button className="btn">
+                          <NavLink to="/view" state={carInfo}>
+                            View All
+                          </NavLink>
+                        </button>
                     </div>
                 </div>
                 <div className="">

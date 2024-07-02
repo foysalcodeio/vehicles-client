@@ -5,6 +5,7 @@ import { GrLocation } from "react-icons/gr";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { GiKeyCard } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { GiAutoRepair } from "react-icons/gi";
 
 const Cards = ({ carData }) => {
     const {_id, photoLink, title, price, location, mileage, transmission, fuelType } = carData;
@@ -53,7 +54,7 @@ const Cards = ({ carData }) => {
                         <div className="card-actions justify-center mt-3">
                             <Link to={`/add/${_id}`}>
                                 <button className="btn btn-warning">
-                                    Buy Now <GiKeyCard className="text-2xl" />
+                                    customized < GiAutoRepair className="text-2xl" />
                                 </button>
                             </Link>
                         </div>
