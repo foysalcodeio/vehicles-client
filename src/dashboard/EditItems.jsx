@@ -6,7 +6,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { AuthContext } from "../auth/AuthProvider";
 
-const AddItems = () => {
+
+const EditItems = () => {
     const carAddItems = useLoaderData();
     console.log(carAddItems);
     const { user } = useContext(AuthContext);
@@ -44,29 +45,34 @@ const AddItems = () => {
             email: user?.email // Include user.email here
         };
 
-        console.log('vehicles',vehicles_info);
+        console.log('vehicles', vehicles_info);
 
         axios.post('http://localhost:5500/bookings', vehicles_info, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            console.log(response.data);
-            if (response.data.insertedId) {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Vehicles Data Updated",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/cart');
-            }
-        })
-        .catch(error => {
-            console.error('There was an error', error.message);
-        });
+            .then(response => {
+                console.log(response.data);
+                if (response.data.insertedId) {
+                    if(user?.email){
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "customized done & adding data",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/cart');
+                    }
+                    else{
+                        navigate('/login')
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('There was an error', error.message);
+            });
     };
 
     return (
@@ -215,6 +221,7 @@ const AddItems = () => {
                                 <button type="submit" className="w-full mt-8 py-3 bg-[#FD5631] hover:bg-[#fd3831] hover:shadow-md text-white rounded-md">
                                     <span>Customized</span>
                                 </button>
+                                
                             </div>
                         </div>
                     </div>
@@ -224,4 +231,4 @@ const AddItems = () => {
     );
 };
 
-export default AddItems;
+export default EditItems;

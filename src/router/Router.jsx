@@ -4,11 +4,14 @@ import Root from "../root/Root";
 import Home from "../components/home/Home";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
-import AddItems from "../dashboard/AddItems";
+import EditItems from "../dashboard/EditItems";
 import Cart from "../components/navbar/Cart";
 import Dashboard from "../dashboard/Dashboard";
 import ViewAll from "../components/shared/ViewAll";
 import Buy from "../components/shared/Buy";
+import PrivateRoute from "./PrivateRoute";
+import Statistic from "../dashboard/Statistic";
+import Details from "../dashboard/Details";
 
 const Router = createBrowserRouter([
     {
@@ -30,7 +33,12 @@ const Router = createBrowserRouter([
             },
             {
                 path: "add/:id",
-                element: <AddItems />,
+                element: <EditItems />,
+                loader: ({ params }) => fetch(`http://localhost:5500/cars/${params.id}`)
+            },
+            {
+                path: "info/:id",
+                element: <Details />,
                 loader: ({ params }) => fetch(`http://localhost:5500/cars/${params.id}`)
             },
             {
@@ -39,7 +47,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: "cart",
-                element: <Cart />,
+                element: <PrivateRoute><Cart /></PrivateRoute>,
             },
             {
                 path: "view",
@@ -49,7 +57,12 @@ const Router = createBrowserRouter([
             {
                 path: "dashboard",
                 element: <Dashboard />
+            },
+            {
+                path: "statistic",
+                element: <Statistic />
             }
+            
             
         ],
         

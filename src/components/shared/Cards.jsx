@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
 import { GiAutoRepair } from "react-icons/gi";
 
 const Cards = ({ carData }) => {
-    const {_id, photoLink, title, price, location, mileage, transmission, fuelType } = carData;
+    const { _id, photoLink, title, price, location, mileage, transmission, fuelType } = carData;
     // console.log('id -> ', carData._id)
     return (
         <div className="w-3/4 m-auto">
             <div> </div>
-            <div className="indicator bg-[#1a1624]  card  w-96">
+            <div className="indicator bg-[#1a1624] card w-96">
                 <figure>
                     <img
                         src={photoLink}
@@ -60,9 +60,11 @@ const Cards = ({ carData }) => {
                         </div>
 
                         <div className="card-actions justify-end mt-3">
-                            <button className="btn bg-[#0f0a1b] tracking-wider ">
-                                Details <MdKeyboardDoubleArrowRight />
-                            </button>
+                            <Link to={`/info/${_id}`}>
+                                <button className="btn btn-accent tracking-wider ">
+                                    Details <MdKeyboardDoubleArrowRight />
+                                </button>
+                            </Link>
                         </div>
                     </div>
 

@@ -20,7 +20,6 @@ const CarInfoRaw = ({ booking, handleDelete, handleConfirm }) => {
                     <div>
                         <div className="font-bold">{name}</div>
                         <div className="text-sm opacity-50">brand id : {_id}</div>
-
                     </div>
                 </div>
             </td>

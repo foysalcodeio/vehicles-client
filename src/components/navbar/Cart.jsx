@@ -48,7 +48,6 @@ const Cart = () => {
                                 text: "Your file has been deleted.",
                                 icon: "success"
                             });
-
                         }
                     }
                 });
@@ -59,29 +58,54 @@ const Cart = () => {
     }
 
 
+    // const handleConfirm = (id) => {
+    //     fetch(`http://localhost:5500/bookings/${id}`, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'content-type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ status: 'confirm' })
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log('data', data)
+    //             if (data.modifiedCount == 1) {
+    //                 const remaining = bookings.filter(booking => booking._id !== id)
+    //                 const updated = bookings.find(booking => booking._id === id)
+    //                 updated.status = 'confirm'
+    //                 const newBookings = [updated, ...remaining]
+    //                 setBookings(newBookings)
+    //             }
+
+    //         })
+    //         .catch(error => {
+    //             console.error('handle confirm section error', error.message)
+    //         })
+    // }
+
+
+
+    // Advance way
     const handleConfirm = (id) => {
         fetch(`http://localhost:5500/bookings/${id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ status: 'confirm' })
+            body: JSON.stringify({status: 'confirm'})
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log('data', data)
-                if (data.modifiedCount == 1) {
-                    const remaining = bookings.filter(booking => booking._id !== id)
-                    const updated = bookings.find(booking => booking._id === id)
-                    updated.status = 'confirm'
-                    const newBookings = [updated, ...remaining]
-                    setBookings(newBookings)
-                }
-
-            })
-            .catch(error => {
-                console.error('handle confirm section error', error.message)
-            })
+        .then(res => res.json())
+        .then(data => {
+            if(data.modifiedCount > 0){
+                const updatedBookings = bookings.map( booking => 
+                    booking._id === id ? {...booking, status: 'confirm'} : booking
+                )
+                setBookings(updatedBookings)
+            }
+        })
+        .catch(error => {
+            console.log('Error updating booking:', error)
+        })
     }
 
     return (

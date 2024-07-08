@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import logo from "../../src/assets/signIn.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -7,12 +7,17 @@ import { AuthContext } from "./AuthProvider";
 
 const Login = () => {
     const { signInAccess, signWithGoogle, passwordReset } = useContext(AuthContext);
-    const navigate = useNavigate();
+
 
     const [showPassword, setShowPassword] = useState(false);
     const [success, setSuccess] = useState('');
     const [loginError, setLoginError] = useState('');
     const emailRef = useRef();
+
+
+    //path & location store data that which gonna go to 
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSignIn = (event) => {
         event.preventDefault();
@@ -37,7 +42,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result.user);
                 setSuccess('User login successfully');
-                navigate('/');
+                navigate(location?.state ? location.state : '/EditItems');
             })
             .catch((error) => {
                 console.log(error.message);
@@ -50,7 +55,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result);
                 setSuccess('User login with Google successfully');
-                navigate("/");
+                navigate(location?.state ? location.state : '/EditItems');
             })
             .catch((error) => {
                 console.log(error);
@@ -156,3 +161,6 @@ const Login = () => {
 };
 
 export default Login;
+
+  
+  

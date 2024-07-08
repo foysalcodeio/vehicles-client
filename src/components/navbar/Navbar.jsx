@@ -18,7 +18,7 @@ const Navbar = () => {
             .then(() => {
                 console.log('user Log out successfully')
                 setUser(null)
-                navigate("/")
+                navigate("/home")
             })
     }
 
@@ -41,16 +41,17 @@ const Navbar = () => {
             </ul>
         </div>
 
-        <li> <NavLink className=" p-4" to={"/cart"}> My Cart </NavLink> </li>
+        <li> <NavLink className=" p-4" to={"/adding"}> Add Car </NavLink> </li>
+        <li> <NavLink className=" p-4" to={"/statistic"}> statistic </NavLink> </li>
         {
-            user ? (<li> <NavLink className=" p-4" to={"/dashboard"}> Dashboard </NavLink> </li>) : ("")
+            user ? (<li> <NavLink className=" p-4" to={"/cart"}> CartList </NavLink> </li>) : ("")
         }
     </>
 
     const NavLinks2 = <>
         <li> <NavLink className=" p-4" to={"/"}> Home </NavLink> </li>
         <li> <NavLink className=" p-4" to={"/add-car"}> Add Car </NavLink> </li>
-        <li> <NavLink className=" p-4" to={"/cart"}> My Cart </NavLink> </li>
+        <li> <NavLink className=" p-4" to={"/dashboard"}> Dashboard </NavLink> </li>
     </>
 
     return (
