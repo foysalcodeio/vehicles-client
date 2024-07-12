@@ -42,7 +42,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result.user);
                 setSuccess('User login successfully');
-                navigate(location?.state ? location.state : '/EditItems');
+                navigate(location?.state ? location.state : '/');
             })
             .catch((error) => {
                 console.log(error.message);
@@ -55,7 +55,7 @@ const Login = () => {
             .then((result) => {
                 console.log(result);
                 setSuccess('User login with Google successfully');
-                navigate(location?.state ? location.state : '/EditItems');
+                navigate(location?.state ? location.state : '/');
             })
             .catch((error) => {
                 console.log(error);

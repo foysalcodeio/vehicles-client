@@ -3,7 +3,6 @@ import { TbManualGearbox } from "react-icons/tb";
 import { RiOilLine } from "react-icons/ri";
 import { GrLocation } from "react-icons/gr";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { GiKeyCard } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { GiAutoRepair } from "react-icons/gi";
 
@@ -13,7 +12,7 @@ const Cards = ({ carData }) => {
     return (
         <div className="w-3/4 m-auto">
             <div> </div>
-            <div className="indicator bg-[#1a1624] card w-96">
+            <div className="indicator bg-[#1a1624] hover:border hover:border-cyan-200 card w-96">
                 <figure>
                     <img
                         src={photoLink}

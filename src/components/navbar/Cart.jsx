@@ -23,6 +23,10 @@ const Cart = () => {
         }
     }, [url, user?.email]);
 
+
+
+
+
     const handleDelete = (id) => {
         fetch(`http://localhost:5500/bookings/${id}`, {
             method: 'DELETE',
@@ -92,33 +96,40 @@ const Cart = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({status: 'confirm'})
+            body: JSON.stringify({ status: 'confirm' })
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.modifiedCount > 0){
-                const updatedBookings = bookings.map( booking => 
-                    booking._id === id ? {...booking, status: 'confirm'} : booking
-                )
-                setBookings(updatedBookings)
-            }
-        })
-        .catch(error => {
-            console.log('Error updating booking:', error)
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    const updatedBookings = bookings.map(booking =>
+                        booking._id === id ? { ...booking, status: 'confirm' } : booking
+                    )
+                    setBookings(updatedBookings)
+                }
+            })
+            .catch(error => {
+                console.log('Error updating booking:', error)
+            })
     }
 
     return (
         <div>
             <div className="container-lg pb-32 pt-10 bg-[#0c0518]">
-                <h2 className="text-2xl font-semibold pb-16">My Cart: {bookings.length}</h2>
+
+                <div className="relative w-full h-52 object-fill">
+                    <img src="https://i.ibb.co/bN2S6tJ/image.png" className="w-full h-full rounded-xl object-cover" />
+                    <div className="absolute inset-0 rounded-xl  flex items-center justify-center bg-gradient-to-r from-[#050505] to-[rgba(21, 21, 21, 0)]">
+                        <h1 className="text-5xl font-semibold  tracking-widest border-b">My Cart: {bookings.length}</h1>
+                    </div>
+                </div>
+
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}
                         {
                             bookings.length === 0 ? "" :
                                 <>
-                                    <thead>
+                                    <thead className="">
                                         <tr className="border-b border-white/30">
                                             <th>
                                                 <label>

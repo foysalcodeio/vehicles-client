@@ -9,6 +9,7 @@ import Cart from "../components/navbar/Cart";
 import Dashboard from "../dashboard/Dashboard";
 import ViewAll from "../components/shared/ViewAll";
 import Buy from "../components/shared/Buy";
+import Adding from "../components/shared/Adding";
 import PrivateRoute from "./PrivateRoute";
 import Statistic from "../dashboard/Statistic";
 import Details from "../dashboard/Details";
@@ -33,12 +34,12 @@ const Router = createBrowserRouter([
             },
             {
                 path: "add/:id",
-                element: <EditItems />,
+                element: <PrivateRoute><EditItems /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5500/cars/${params.id}`)
             },
             {
                 path: "info/:id",
-                element: <Details />,
+                element: <PrivateRoute><Details /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5500/cars/${params.id}`)
             },
             {
@@ -59,10 +60,13 @@ const Router = createBrowserRouter([
                 element: <Dashboard />
             },
             {
+                path: "adding",
+                element: <Adding />,
+            },
+            {
                 path: "statistic",
                 element: <Statistic />
             }
-            
             
         ],
         

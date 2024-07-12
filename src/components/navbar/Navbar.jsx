@@ -41,16 +41,17 @@ const Navbar = () => {
             </ul>
         </div>
 
-        <li> <NavLink className=" p-4" to={"/adding"}> Add Car </NavLink> </li>
+       
         <li> <NavLink className=" p-4" to={"/statistic"}> statistic </NavLink> </li>
         {
             user ? (<li> <NavLink className=" p-4" to={"/cart"}> CartList </NavLink> </li>) : ("")
         }
+         <li> <NavLink className="btn tracking-wider mr-2" to={"/adding"}> + Sell Car </NavLink> </li>
     </>
 
     const NavLinks2 = <>
         <li> <NavLink className=" p-4" to={"/"}> Home </NavLink> </li>
-        <li> <NavLink className=" p-4" to={"/add-car"}> Add Car </NavLink> </li>
+        <li> <NavLink className=" p-4" to={"/add-car"}> Sell Car </NavLink> </li>
         <li> <NavLink className=" p-4" to={"/dashboard"}> Dashboard </NavLink> </li>
     </>
 
