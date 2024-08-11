@@ -4,6 +4,7 @@ import logo from "../../src/assets/signIn.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext, useState, useRef } from "react";
 import { AuthContext } from "./AuthProvider";
+import axios from "axios";
 
 const Login = () => {
     const { signInAccess, signWithGoogle, passwordReset } = useContext(AuthContext);
@@ -40,9 +41,19 @@ const Login = () => {
 
         signInAccess(email, password)
             .then((result) => {
-                console.log(result.user);
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
                 setSuccess('User login successfully');
-                navigate(location?.state ? location.state : '/');
+
+                //get access jwt token from backend
+                const user = { email }
+                axios.post('http://localhost:5500/jwt', user, {withCredentials: true })
+                    .then(response => {
+                        console.log('response data ->', response.data)
+                        if (response.data.success) {
+                           navigate(location?.state ? location?.state : '/');
+                        }
+                    })
             })
             .catch((error) => {
                 console.log(error.message);
@@ -55,13 +66,24 @@ const Login = () => {
             .then((result) => {
                 console.log(result);
                 setSuccess('User login with Google successfully');
-                navigate(location?.state ? location.state : '/');
+
+                const email = result.user.email; // Extracting email from the result
+                const user = { email }; // Creating user object with email
+
+                axios.post('http://localhost:5500/jwt', user, { withCredentials: true })
+                    .then(response => {
+                        console.log('response data -', response.data);
+                        if (response.data.success) {
+                            navigate(location?.state ? location?.state : '/');
+                        }
+                    });
             })
             .catch((error) => {
                 console.log(error);
                 setLoginError(error.message);
             });
     };
+
 
     const handleResetPassword = () => {
         const email = emailRef.current.value;
@@ -105,8 +127,9 @@ const Login = () => {
                                     name="email"
                                     ref={emailRef}
                                     required
-                                    className="rounded-md w-full py-3 px-4 bg-[#302D3D]"
+                                    className="rounded-md w-full py-3 px-4 bg-[#302D3D] tracking-wider"
                                     placeholder="Enter email here.."
+                                    autoComplete="email" // Added autocomplete attribute
                                 />
                                 <div>
                                     <label htmlFor="password" className="block w-full pb-2 pt-8 font-semibold">
@@ -118,14 +141,15 @@ const Login = () => {
                                             type={showPassword ? "text" : "password"}
                                             name="password"
                                             required
-                                            className="rounded-md w-full py-3 px-4 bg-[#302D3D] pr-12" // Add pr-12 to provide space for the icon
+                                            className="rounded-md w-full py-3 px-4 bg-[#302D3D] pr-12 tracking-wider"
                                             placeholder="Enter password here.."
+                                            autoComplete="current-password" // Added autocomplete attribute
                                         />
                                         <span
                                             className="absolute inset-y-0 right-4 flex items-center cursor-pointer"
                                             onClick={() => setShowPassword(!showPassword)}
                                         >
-                                            {showPassword ? <FaEyeSlash className="text-2xl" /> : <FaEye className="text-2xl" />}
+                                            {showPassword ? <FaEye className="text-2xl" /> : <FaEyeSlash className="text-2xl" />}
                                         </span>
                                     </div>
                                 </div>
@@ -136,6 +160,7 @@ const Login = () => {
                                     Sign In
                                 </button>
                             </form>
+
                             <div className="divider">OR</div>
                             {/* Google Authentication */}
                             <button onClick={handleSignInWithGoogle} type="submit" className="w-full flex items-center justify-center gap-3 py-3 border border-[#FD5631] hover:bg-[#fd3831]/40 rounded-md text-dark">
@@ -162,5 +187,3 @@ const Login = () => {
 
 export default Login;
 
-  
-  

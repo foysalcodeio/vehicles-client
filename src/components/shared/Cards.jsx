@@ -14,7 +14,7 @@ const Cards = ({ carData }) => {
             <div> </div>
             <div className="indicator bg-[#1a1624] hover:border hover:border-cyan-200 card w-96">
                 <figure>
-                    <img
+                    <img className="h-60"
                         src={photoLink}
                         alt="car!" />
                     <span className="indicator-item badge ">new</span>

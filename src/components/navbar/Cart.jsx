@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../auth/AuthProvider";
 import axios from "axios";
+import { AuthContext } from "../../auth/AuthProvider";
 import CarInfoRaw from "./CarInfoRaw";
 import Swal from "sweetalert2";
 
@@ -12,20 +12,18 @@ const Cart = () => {
 
     useEffect(() => {
         if (user?.email) {
-            axios.get(url)
-                .then(response => {
-                    console.log(response.data);
-                    setBookings(response.data);
-                })
-                .catch(error => {
-                    console.error('Error fetching bookings:', error);
-                });
+          axios.get(url, { withCredentials: true })
+            .then(response => {
+              console.log(response.data);
+              setBookings(response.data);
+            })
+            .catch(error => {
+              console.error('Error fetching bookings:', error);
+            });
         }
-    }, [url, user?.email]);
+      }, [user?.email]);;
 
-
-
-
+    
 
     const handleDelete = (id) => {
         fetch(`http://localhost:5500/bookings/${id}`, {

@@ -97,9 +97,6 @@ const EditItems = () => {
                             <h2 className="text-4xl font-semibold tracking-wider border-b">Customize Your Vehicle</h2>
                         </div>
                     </div>
-
-
-
                 </div>
 
 
