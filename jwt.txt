@@ -1,0 +1,85 @@
+step : 1 JWT token secret and set token to http only cookie
+----------------------------------------------------------
+	- jwt.sign(payload, secret, {expiresIn: })
+	- Client site cookie request
+		axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+	- send to token client site & set
+
+        	res.cookie('token', token, {
+        	 httpOnly: true,
+	         secure: process.env.NODE_ENV === 'production', // Set secure to true in production
+          	 sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Adjust sameSite based on environment
+	          //secure: process.env.NODE_ENV === 'production', // Set secure to true in production
+        	  maxAge: 3600000 // 1 hour
+        	})
+		- keep in mind
+			- set cookies with ttp only. for development secure: false
+	
+	- cors
+	- client site axios setting
+	
+
+	- how to store token in the clinet side
+		- 1. memory --> ok type
+		- 2. local storage -> ok type (XSS)
+		- 3. cookies: http only 
+
+
+step : 2 Send token server to client and client to the server side
+-------------------------------------------------------------------
+do,
+server site : cors origin
+---------------
+	app.use(cors({
+  		origin: ['http://localhost:5173'],
+  		credentials: true
+	}));
+
+send the cookie from server
+---------------------------
+client site :
+-----------------------------------------
+we send cookie or i recived cookie and didn't save now what can i do?
+	- {withcredientails: true} we must set the crediential
+
+	client
+	 axios.get(`https://vehicles-54ebd.web.app/bookings?email=${user.email}`, { withCredentials: true })
+	 ...	
+	 ...
+
+
+client to server
+--------------------
+	client - data pass
+	------------------
+	now we get cookie then again we send the cookie in server site
+	cart.jsx-	axios.get(`https://vehicles-54ebd.web.app/bookings?email=${user.email}`, { withCredentials: true })
+	
+	server - data recived
+	---------------------
+	app.get('/bookings', async(req, res) => {
+      		console.log('rec token', req.cookies.token)
+      
+     		 let query = {};
+      		if (req.query?.brand) {
+      			query = { brand: req.query.brand };
+      		}
+		const result = await carCollection.find(query).toArray();
+	        res.send(result);
+   	 });
+
+
+
+Another topic
+--------------
+axios default with credientials
+
+
+
+
+
+
+
+
+
+

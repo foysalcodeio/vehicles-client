@@ -5,9 +5,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext, useState, useRef } from "react";
 import { AuthContext } from "./AuthProvider";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-    const { signInAccess, signWithGoogle, passwordReset } = useContext(AuthContext);
+    //first e aeta use kortam
+    // const {  signWithGoogle, passwordReset } = useContext(AuthContext);
+
+    // custoom hook make kore aeta use korci
+    const {signInAccess, signWithGoogle, passwordReset} = useAuth();
 
 
     const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +54,7 @@ const Login = () => {
                 const user = { email }
                 axios.post('http://localhost:5500/jwt', user, {withCredentials: true })
                     .then(response => {
-                        console.log('response data ->', response.data)
+                        //console.log('response data ->', response.data)
                         if (response.data.success) {
                            navigate(location?.state ? location?.state : '/');
                         }

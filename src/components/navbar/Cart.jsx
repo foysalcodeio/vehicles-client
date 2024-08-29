@@ -3,25 +3,38 @@ import axios from "axios";
 import { AuthContext } from "../../auth/AuthProvider";
 import CarInfoRaw from "./CarInfoRaw";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Cart = () => {
     const { user } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]); // Initialize to an empty array
+    const axiosSecure = useAxiosSecure()
 
-    const url = `http://localhost:5500/bookings?email=${user?.email}`;
+    //const url = `http://localhost:5500/bookings?email=${user?.email}`;
+    const url = `/bookings?email=${user?.email}`;
 
     useEffect(() => {
-        if (user?.email) {
-          axios.get(url, { withCredentials: true })
-            .then(response => {
-              console.log(response.data);
-              setBookings(response.data);
-            })
-            .catch(error => {
-              console.error('Error fetching bookings:', error);
-            });
-        }
-      }, [user?.email]);;
+
+    //     if (user?.email) {
+    //       axios.get(url, { withCredentials: true })
+    //         .then(response => {
+    //           console.log(response.data);
+    //           setBookings(response.data);
+    //         })
+    //         .catch(error => {
+    //           console.error('Error fetching bookings:', error);
+    //         });
+    //     }
+    //   }, [user?.email]);
+
+    if (user?.email) {
+        axiosSecure.get(url)
+          .then(response => {
+            setBookings(response.data);
+          })
+      }
+    }, [url, axiosSecure]);
+
 
     
 
@@ -115,7 +128,7 @@ const Cart = () => {
             <div className="container-lg pb-32 pt-10 bg-[#0c0518]">
 
                 <div className="relative w-full h-52 object-fill">
-                    <img src="https://i.ibb.co/bN2S6tJ/image.png" className="w-full h-full rounded-xl object-cover" />
+                    <img src="https://i.pinimg.com/736x/da/05/c5/da05c59db03375cf78d24302126fbf14.jpg" className="w-full opacity-45 h-full rounded-xl object-cover" />
                     <div className="absolute inset-0 rounded-xl  flex items-center justify-center bg-gradient-to-r from-[#050505] to-[rgba(21, 21, 21, 0)]">
                         <h1 className="text-5xl font-semibold  tracking-widest border-b">My Cart: {bookings.length}</h1>
                     </div>

@@ -5,10 +5,17 @@ import { RxCross1 } from "react-icons/rx";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/AuthProvider";
 import AutoSlider from "../home/AutoSlider";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
 
-    const { user, LogOut, setUser } = useContext(AuthContext);
+    // age aeta use kortam akon aeta use kori
+    //const { user, LogOut, setUser } = useContext(AuthContext);
+
+    // akon custom-made hooks use kore
+    const {user, LogOut, setUser} = useAuth();
+
+    
     const [hide, setHide] = useState(false)
 
     const navigate = useNavigate();
